@@ -8,7 +8,7 @@ ___
 ## Data
 All data is already seeded into the SQL server. This is seeded when the service begins running, and all data is wiped out when the service is closed.
 
-![Database Diagram](https://drawsql.app/teams/self-employed-35/diagrams/htnbe/embed)
+![Database Diagram](img.png)
 ___
 ## Important Decisions
 I had to make a couple of important decisions regarding the database schema and the endpoints. This is my reasoning and I really hope I didn't troll.
@@ -43,7 +43,7 @@ query {
 }
 
 ```
-```json
+```graphql
 # Response
 {
   "data": {
@@ -92,7 +92,7 @@ query {
 | Field     | Type   | Required | Description                |
 |-----------|--------|----------|----------------------------|
 | badgeCode | String | Yes      | The badge code of the user |
-```json
+```graphql
 # Response
 {
   "data": {
@@ -140,7 +140,7 @@ mutation {
 |-------|--------|----------|-------------------------------------------------------------|
 | uuid  | String | Yes      | The UUID of the user                                        |
 | data  | json   | Yes      | Can contain the name, email, and phone we want to update to |
-```json
+```graphql
 # Response
 {
   "data": {
@@ -191,7 +191,8 @@ mutation {
 | badgeCode        | String | Yes      | The badge code of the hacker                      |
 | activityName     | String | Yes      | The name of the activity we are scanning into     |
 | activityCategory | String | Yes      | The category of the activity we are scanning into |
-```json
+```graphql
+# Response
 {
   "data": {
     "scanHacker": {
@@ -235,7 +236,8 @@ query {
 | minFrequency     | Integer | No       | Display the activities with at least this much scans |
 | activityName     | Integer | No       | Display the activities with at most this much scans |
 | activityCategory | String  | No       | Filter all activities that are not in this category |
-```json
+```graphql
+# Response
 {
   "data": {
     "scans": [
@@ -273,7 +275,7 @@ mutation {
 |------------------|--------|----------|--------------------------------------------|
 | uuid             | String | Yes      | UUID of the hacker we want to check in.    |
 | badgeCode        | String | Yes      | Badge code that we want to assign to them. |
-```json
+```graphql
 # Response
 {
   "data": {
@@ -323,7 +325,7 @@ mutation {
 |------------------|--------|----------|-------------------------------------------------------|
 | uuid             | String | Yes      | UUID of the hacker we want to assign a new badge for. |
 | badgeCode        | String | Yes      | Badge code that we want to assign to them.            |
-```json
+```graphql
 # Response
 {
   "data": {
@@ -372,7 +374,7 @@ mutation {
 | Field            | Type   | Required | Description                                    |
 |------------------|--------|----------|------------------------------------------------|
 | badgeCode        | String | Yes      | Badge code of the hacker we want to check out. |
-```json
+```graphql
 # Response
 {
   "data": {
