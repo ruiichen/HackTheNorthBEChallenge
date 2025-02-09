@@ -7,7 +7,6 @@ Running it locally without Docker is  also possible. Create a virtual environmen
 ___
 ## Data
 All data is already seeded into the SQL server. This is seeded when the service begins running, and all data is wiped out when the service is closed.
-
 ![Database Diagram](img.png)
 ___
 ## Important Decisions
@@ -15,12 +14,13 @@ I had to make a couple of important decisions regarding the database schema and 
 - The main choice was using a type 4 uuid as the primary key for the hackers database rather than the email or the badge code. 
   - This was because I think the email and badge code can change. For example, maybe the user wants to update their email, or they lost their badge and need a new one. 
   - I think it makes more sense to bind scans to the actual user, rather than something that change as like email and badge code.
-- When updating the user, it makes sense that they do it from their account, and so `uuid` is passed as the parameter.
-- In other circumstances, it makes sense from the problem context that we want to use badge code instead. 
+- When running queries where we need an identify the user, I flip-flop between using the UUID and the badge code. This is based off what I think makes sense depending on the context. For example, when updating the user, it makes sense that they do it from their account, and so `uuid` is passed as the parameter. However, when querying for user information I chose to use the badge code to identify the user. This is because I am assuming that this endpoint is used for an organizer to scan someone's badge for their information, or for hackers to scan eachother's badges for their information (and also why it being null won't matter). I remember the year I went scanning the badges bought us to like a linktree page.
 - I am assuming that the hackers database starts off with all registered event attendees.
-  - When they come check in, they will be assigned a badge code. When they check out we will remove the badge code. It also makes sense for them to be able to get a new badge, in the event that they lost it. These are an extra set of endpoints.
-- The activities and categories are kept as reference tables. There is a tradeoff since we are adding scans much more than we are adding activities or categories, but I wanted to be safe since there was no gurantee for what type the activity name or category would come in.
+  - From the problem statement, it seems that users have pre-registered for the event with information like email and name.
+  - When they come check in, they will be assigned a badge code. When they check out we will remove the badge code. It also makes sense for them to be able to get a new badge, in the event that they lost it. These are an extra set of endpoints for this functionality.
+- The activities and categories are kept as reference tables. There is a tradeoff since we are adding scans much more than we are adding activities or categories, but I wanted to be safe since there was no guarantee for what type the activity name or category would come in.
   - Could also be better for renaming. For example, maybe we want to archive an activity from 2022 to add a new one in 2023 by changing the name, but still have it show up in user records. This way we have a easy way to change them.
+- For the scan data endpoint, another possibility was keeping track of the number of scans in the activity database. I decided against this as we scan much more than we will query number of scans, meaning that on each scan we are doing much more work as we have to update the count in the activity table as well.
 ___
 ## API
 ### All Users Endpoint
@@ -136,10 +136,10 @@ mutation {
   }
 }
 ```
-| Field | Type   | Required | Description                                                 |
-|-------|--------|----------|-------------------------------------------------------------|
-| uuid  | String | Yes      | The UUID of the user                                        |
-| data  | json   | Yes      | Can contain the name, email, and phone we want to update to |
+| Field | Type   | Required | Description                                                                            |
+|-------|--------|----------|----------------------------------------------------------------------------------------|
+| uuid  | String | Yes      | The UUID of the user                                                                   |
+| data  | json   | Yes      | Can contain the name, email, and phone we want to update to. All of these are optional |
 ```graphql
 # Response
 {

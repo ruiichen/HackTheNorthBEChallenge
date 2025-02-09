@@ -8,7 +8,7 @@ from ..models.activities import Activities
 class Scans(Base):
     __tablename__ = 'scans'
 
-    scan_id = Column(Integer, primary_key=True, autoincrement=True)
+    scan_id = Column(Integer, primary_key=True, autoincrement=True, index=True)
     hacker_uuid= Column(String, ForeignKey("hackers.uuid"), nullable=False)
     activity_id = Column(Integer, ForeignKey("activities.activity_id"), nullable=False, index=True)
     scanned_at = Column(String)

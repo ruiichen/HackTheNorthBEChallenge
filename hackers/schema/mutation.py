@@ -8,7 +8,6 @@ from ..types.activities import Activities
 from ..types.categories import Categories
 from ..models.scans import Scans as ScansModel
 from datetime import datetime
-import json
 
 class CheckHackerIn(graphene.Mutation):
     class Arguments:

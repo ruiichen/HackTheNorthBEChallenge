@@ -6,7 +6,7 @@ from ..models.categories import Categories
 class Activities(Base):
     __tablename__ = 'activities'
 
-    activity_id =  Column(Integer, primary_key=True)
+    activity_id =  Column(Integer, primary_key=True, index=True)
     activity_name = Column(String, unique=True)
     category_id = Column(Integer,  ForeignKey("categories.id"), nullable=False)
     created_at = Column(String)

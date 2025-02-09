@@ -6,6 +6,6 @@ from ..database.base import Base
 class Categories(Base):
     __tablename__ = 'categories'
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, autoincrement=True, index=True)
     category_name = Column(String)
     created_at = Column(String)
