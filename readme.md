@@ -2,8 +2,6 @@
 ___
 ## Setting Up
 To start the backend, simply have Docker open and run `docker compose up` in the root. This will start up the service on `http://127.0.0.1:3000/graphql`.
-
-Running it locally without Docker is  also possible. Create a virtual environment (Python 3.11), set `HackTheNorthBE` as the source root, run `pip3 install -r requirements.txt`, and then run `python3 main.py`. This will start the service under `http://127.0.0.1:5000/graphql`.
 ___
 ## Data
 All data is already seeded into the SQL server. This is seeded when the service begins running, and all data is wiped out when the service is closed.
@@ -402,3 +400,5 @@ mutation {
 ___
 ## Additional Notes:
 Besides the boilerplate provided code, I also used SQLAlchemy for my ORM.
+
+Running it locally without Docker is  also possible. Create a virtual environment (Python 3.11), set `HackTheNorthBE` as the source root, run `pip3 install -r requirements.txt`, and then run `python3 main.py`. This will start the service under `http://127.0.0.1:5000/graphql`.
