@@ -399,3 +399,6 @@ mutation {
   }
 }
 ```
+___
+## Additional Notes:
+Besides the boilerplate provided code, I also used SQLAlchemy for my ORM.
